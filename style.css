@@ -1,0 +1,46 @@
+/* Link Lab: page layout. The link-state rules themselves stay in the
+   <style> block in index.html, because they are the lesson. */
+:root {
+  --bg: #f5f5f4;
+  --card: #ffffff;
+  --ink: #1c1917;
+  --muted: #57534e;
+  --rule: #e7e5e4;
+  --c-link: #15803d;
+  --c-visited: #be185d;
+  --c-focus: #1d4ed8;
+  --c-hover: #b91c1c;
+  --c-active-bg: #fde047;
+  --c-active: #1c1917;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 1rem/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.wrap { max-width: 64rem; margin: 0 auto; padding: clamp(2rem, 6vw, 5rem) 1.25rem 3rem; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.5rem); line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 0.75rem; }
+h2 { font-size: 1.25rem; margin: 3rem 0 1rem; letter-spacing: -0.01em; }
+.intro { max-width: 40rem; color: var(--muted); font-size: 1.1rem; margin: 0; }
+code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.92em; }
+
+/* The three real links, as cards */
+.links { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+.links a {
+  display: block;
+  padding: 1.5rem 1.25rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-top: 6px solid var(--brand);
+  border-radius: 12px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.links small { display: block; font-size: 0.85rem; font-weight: 400; color: var(--muted); margin-top: 0.25rem; }
+.hd { --brand: royalblue; }
+.svt { --brand: #d32f2f; }
+.linkedin { --brand: #1c1917; }
+.foot { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.9rem; }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="robots" content="noindex">
@@ -12,41 +12,47 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Link Lab">
   <meta name="twitter:description" content="CSS pseudo-classes for link states: :link, :visited, :hover, :active.">
+  <link rel="stylesheet" href="style.css">
   <style>
+    /* The lesson: link states in LVHA order. Same specificity, so the last matching rule wins. */
     a:link {
-      color: green;
-      background-color: transparent;
+      color: var(--c-link);
       text-decoration: none;
     }
     a:visited {
-      color: pink;
-      background-color: transparent;
+      color: var(--c-visited);
       text-decoration: none;
     }
     a:hover {
-      color: red;
-      background-color: transparent;
+      color: var(--c-hover);
       text-decoration: underline;
     }
     a:active {
-      color: yellow;
-      background-color: transparent;
+      color: var(--c-active);
+      background-color: var(--c-active-bg);
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <a href="https://www.hd.se/2022-05-19/kommer-nagra-vuxna-dyka-upp" target="_blank" rel="noopener noreferrer" style="
-  border: royalblue 5px solid; padding: 10px; margin: 20px;
-  background-color: yellow; font-family: Verdana;">
-  HD</a>
-  <a href="https://www.svt.se/nyheter/lokalt/helsingborg/har-visas-ungdomarnas-ideer-om-helsingborg-upp" target="_blank" rel="noopener noreferrer" style="
-  border: red 5px solid; padding: 10px; margin: 20px;
-  background-color: greenyellow; font-family: Verdana;">
-  SVT</a>
-  <a href="https://www.linkedin.com/in/mahad-abdullahi-262b56228/" target="_blank" rel="noopener noreferrer" style="
-  border: black 5px solid; padding: 10px; margin: 20px;
-  background-color: lightblue; font-family: Verdana;">
-  LinkedIn</a>
+  <main class="wrap">
+    <header>
+      <h1>Link Lab</h1>
+      <p class="intro">One link, several states. Hover, click and revisit the three links below and watch the colour follow the rules in the stylesheet.</p>
+    </header>
+
+    <section aria-labelledby="try">
+      <h2 id="try">Try the links</h2>
+      <ul class="links">
+        <li><a class="hd" href="https://www.hd.se/2022-05-19/kommer-nagra-vuxna-dyka-upp" target="_blank" rel="noopener noreferrer">HD<small>Helsingborgs Dagblad</small></a></li>
+        <li><a class="svt" href="https://www.svt.se/nyheter/lokalt/helsingborg/har-visas-ungdomarnas-ideer-om-helsingborg-upp" target="_blank" rel="noopener noreferrer">SVT<small>SVT Nyheter Helsingborg</small></a></li>
+        <li><a class="linkedin" href="https://www.linkedin.com/in/mahad-abdullahi-262b56228/" target="_blank" rel="noopener noreferrer">LinkedIn<small>Profile</small></a></li>
+      </ul>
+    </section>
+
+    <footer class="foot">
+      <p>Reworked from a 2023 course exercise; the original is in the git history.</p>
+    </footer>
+  </main>
 </body>
 </html>
