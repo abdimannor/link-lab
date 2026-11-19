@@ -44,3 +44,15 @@ code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-si
 .svt { --brand: #d32f2f; }
 .linkedin { --brand: #1c1917; }
 .foot { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.9rem; }
+
+/* Specimen strip: each state forced on a static label */
+.note { color: var(--muted); margin: 0 0 1rem; max-width: 40rem; }
+.specimens { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); }
+.specimens li { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 1.25rem 1rem; display: grid; gap: 0.35rem; }
+.specimens li > span:last-child { color: var(--muted); font-size: 0.9rem; }
+.swatch { justify-self: start; font-size: 1.5rem; font-weight: 700; padding: 0 0.2rem; margin-bottom: 0.5rem; text-underline-offset: 0.15em; }
+.s-link { color: var(--c-link); }
+.s-visited { color: var(--c-visited); }
+.s-focus { color: var(--c-focus); outline: 3px solid var(--c-focus); outline-offset: 3px; }
+.s-hover { color: var(--c-hover); text-decoration: underline; }
+.s-active { color: var(--c-active); background: var(--c-active-bg); text-decoration: underline; }
