@@ -1,3 +1,2 @@
 User-agent: *
-Allow: /
-Sitemap: https://abdimannor.github.io/link-lab/sitemap.xml
+Disallow: /
