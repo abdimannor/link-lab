@@ -14,7 +14,8 @@
   <meta name="twitter:description" content="CSS pseudo-classes for link states: :link, :visited, :hover, :active.">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* The lesson: link states in LVHA order. Same specificity, so the last matching rule wins. */
+    /* The lesson: link states in LVHA order, with :focus-visible added before :hover.
+       All have the same specificity, so the last matching rule wins. */
     a:link {
       color: var(--c-link);
       text-decoration: none;
@@ -22,6 +23,11 @@
     a:visited {
       color: var(--c-visited);
       text-decoration: none;
+    }
+    a:focus-visible {
+      color: var(--c-focus);
+      outline: 3px solid var(--c-focus);
+      outline-offset: 3px;
     }
     a:hover {
       color: var(--c-hover);
