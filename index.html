@@ -69,6 +69,43 @@
       </ol>
     </section>
 
+    <section aria-labelledby="order">
+      <h2 id="order">Why the order matters</h2>
+      <p class="note">All five selectors have the same specificity. When several states match at once, the rule written last wins. Remember it as <strong>L</strong>o<strong>V</strong>e <strong>HA</strong>te: link, visited, hover, active. Simplified colour names below; the page uses the exact values in its <code>&lt;style&gt;</code> block.</p>
+      <ol class="order">
+        <li>
+          <pre><code>a:link {
+  color: green;
+}</code></pre>
+          <p>First: the base colour of a link that has not been visited.</p>
+        </li>
+        <li>
+          <pre><code>a:visited {
+  color: pink;
+}</code></pre>
+          <p>Second: overrides :link once the page has been opened. Browsers only let it change colours, for privacy.</p>
+        </li>
+        <li>
+          <pre><code>a:focus-visible {
+  outline: 3px solid blue;
+}</code></pre>
+          <p>Third: the keyboard state. Placed before :hover so pointer states still win.</p>
+        </li>
+        <li>
+          <pre><code>a:hover {
+  color: red;
+}</code></pre>
+          <p>Fourth: comes after :visited, so a visited link still turns red under the pointer.</p>
+        </li>
+        <li>
+          <pre><code>a:active {
+  background: yellow;
+}</code></pre>
+          <p>Last: a pressed link is also hovered, so :active must come after :hover or it would never show.</p>
+        </li>
+      </ol>
+    </section>
+
     <footer class="foot">
       <p>Reworked from a 2023 course exercise; the original is in the git history.</p>
     </footer>
