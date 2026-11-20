@@ -130,3 +130,34 @@ code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-si
   .pg-toggles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (prefers-reduced-motion: reduce) { .playground button { transition: none; } }
+
+/* ---- challenge: order the rules ---- */
+.challenge[hidden] { display: none; }
+.challenge h2 span:last-child { color: var(--c-hover); }
+.ch-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 1.25rem; align-items: start; }
+.ch-rules { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.ch-rules li {
+  display: grid; grid-template-columns: auto 1fr auto; gap: .75rem; align-items: center;
+  padding: .6rem .8rem; background: var(--card); border: 2px solid var(--ink); border-radius: .6rem;
+}
+.ch-rules code { font-size: .9rem; }
+.ch-rules .pg-move button {
+  font: inherit; font-weight: 800; inline-size: 2.25rem; block-size: 2.25rem; cursor: pointer;
+  color: var(--ink); background: var(--card); border: 2px solid var(--ink); border-radius: .4rem;
+}
+.ch-rules .pg-move button:disabled { opacity: .35; cursor: default; }
+.ch-scenarios { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.ch-case {
+  display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center;
+  padding: .9rem 1rem; background: var(--card); border: 2px solid var(--rule); border-radius: .8rem;
+}
+.ch-specimen { font: 900 2rem/1 system-ui, sans-serif; letter-spacing: -.03em; min-inline-size: 3.5rem; text-align: center; }
+.ch-text { display: grid; gap: .15rem; }
+.ch-text small { color: var(--muted); }
+.ch-target { font-weight: 800; }
+.ch-mark { font-style: normal; font-weight: 800; font-size: .85rem; color: var(--c-hover); }
+.ch-case.is-ok { border-color: var(--c-link); background: #ecfdf3; }
+.ch-case.is-ok .ch-mark { color: var(--c-link); }
+.ch-score { font-weight: 800; font-size: 1.1rem; margin-top: 1rem; }
+.challenge.is-solved .ch-score { color: var(--c-link); }
+@media (max-width: 48rem) { .ch-grid { grid-template-columns: 1fr; } }
