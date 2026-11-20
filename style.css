@@ -2,6 +2,9 @@
    <style> block in index.html, because they are the lesson. */
 :root {
   --bg: #eceeff;
+  --course-bg: #1c1b2e;
+  --course-ink: #eceeff;
+  --course-accent: #a5b4fc;
   --grid: rgb(79 70 229 / 0.07);
   --card: #ffffff;
   --ink: #1c1b2e;
@@ -86,7 +89,7 @@ code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-si
 .playground button {
   font: 600 .95rem ui-monospace, "SF Mono", Menlo, monospace; color: var(--ink); cursor: pointer;
   background: var(--card); border: 2px solid var(--ink); border-radius: 10px; padding: .6rem .8rem;
-  box-shadow: 3px 3px 0 var(--ink); transition: transform .08s, box-shadow .08s;
+  box-shadow: 3px 3px 0 var(--ink);
 }
 .playground button:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
 .playground button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
@@ -129,7 +132,6 @@ code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-si
   .pg-grid { grid-template-columns: 1fr; }
   .pg-toggles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (prefers-reduced-motion: reduce) { .playground button { transition: none; } }
 
 /* ---- challenge: order the rules ---- */
 .challenge[hidden] { display: none; }
@@ -161,3 +163,13 @@ code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-si
 .ch-score { font-weight: 800; font-size: 1.1rem; margin-top: 1rem; }
 .challenge.is-solved .ch-score { color: var(--c-link); }
 @media (max-width: 48rem) { .ch-grid { grid-template-columns: 1fr; } }
+
+/* Motion: on when the switch (or, without a choice, the OS) says so. */
+:root[data-motion="on"] { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion]) { scroll-behavior: smooth; }
+}
+:root[data-motion="on"] .playground button { transition: transform .08s, box-shadow .08s; }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion]) .playground button { transition: transform .08s, box-shadow .08s; }
+}

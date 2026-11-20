@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="data:,">
+  <script>(()=>{let m=null;try{m=localStorage.getItem('motion')}catch(e){}document.documentElement.dataset.motion=m==='on'||m==='off'?m:(matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on')})()</script>
   <title>Link Lab</title>
   <meta name="description" content="CSS pseudo-classes for link states: :link, :visited, :hover, :active.">
   <meta property="og:title" content="Link Lab">
@@ -13,6 +14,7 @@
   <meta name="twitter:title" content="Link Lab">
   <meta name="twitter:description" content="CSS pseudo-classes for link states: :link, :visited, :hover, :active.">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="course.css">
   <style>
     /* The lesson: link states in LVHA order, with :focus-visible added before :hover.
        All have the same specificity, so the last matching rule wins. */
@@ -41,6 +43,16 @@
   </style>
 </head>
 <body>
+  <nav class="course-bar" lang="sv" aria-label="Kursen">
+    <p class="course-name">Kurs</p>
+    <ol>
+      <li><a href="https://hello-web-kappa.vercel.app/"><span class="course-num">Lektion 1</span> Hello Web<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://tech-world-zeta.vercel.app/"><span class="course-num">Lektion 2</span> Tech World<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://link-lab-flax.vercel.app/" aria-current="page"><span class="course-num">Lektion 3</span> Link Lab<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://dress-code-bay.vercel.app/"><span class="course-num">Lektion 4</span> Dress Code<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+    </ol>
+    <span class="course-motion"><button type="button" aria-pressed="false">R&ouml;relse</button></span>
+  </nav>
   <main class="wrap">
     <header>
       <h1>Link Lab</h1>
@@ -142,7 +154,12 @@
     </section>
 
   </main>
+  <nav class="course-next" lang="sv" aria-label="N&auml;sta lektion">
+    <p>N&auml;sta lektion</p>
+    <a href="https://dress-code-bay.vercel.app/">Lektion 4: Dress Code &rarr;</a>
+  </nav>
   <script src="playground.js" defer></script>
   <script src="challenge.js" defer></script>
+  <script src="course.js" defer></script>
 </body>
 </html>

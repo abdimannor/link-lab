@@ -52,6 +52,7 @@
     });
     score.textContent = ok === 3 ? 'All three scenarios solved. Every state can show.' : ok + ' of 3 scenarios solved';
     root.classList.toggle('is-solved', ok === 3);
+    if (ok === 3 && window.courseDone) window.courseDone();
     if (focusKey) {
       const again = list.querySelector('li[data-key="' + focusKey + '"] [data-move="' + dir + '"]');
       (again && !again.disabled ? again : list.querySelector('li[data-key="' + focusKey + '"] button:not([disabled])')).focus();
