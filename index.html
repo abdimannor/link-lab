@@ -131,7 +131,18 @@
       </div>
     </section>
 
+    <section class="challenge" id="challenge" aria-labelledby="ch-title" hidden>
+      <h2 id="ch-title"><span>Order</span> <span>the rules</span></h2>
+      <p class="note">A challenge. The five rules below start in a broken order. Move them until all three scenarios show the target colour. The browser renders each scenario with your order, and a scenario turns green when its real computed colour matches.</p>
+      <div class="ch-grid">
+        <ol class="ch-rules" aria-label="Your rule order, first to last"></ol>
+        <ul class="ch-scenarios" aria-label="Scenarios"></ul>
+      </div>
+      <p class="ch-score" role="status" aria-live="polite"></p>
+    </section>
+
   </main>
   <script src="playground.js" defer></script>
+  <script src="challenge.js" defer></script>
 </body>
 </html>
