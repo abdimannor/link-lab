@@ -106,9 +106,35 @@
       </ol>
     </section>
 
+    <section class="playground" id="playground" aria-labelledby="pg-title" hidden>
+      <h2 id="pg-title"><span>State</span> <span>playground</span></h2>
+      <p class="note">Force any mix of states on one link, then drag or move the five rules into a new order. The rules below are rebuilt live in the order you choose, so the browser itself decides who wins.</p>
+      <div class="pg-grid">
+        <div class="pg-stage">
+          <div class="pg-toggles" role="group" aria-label="Force states">
+            <button type="button" data-state="visited" aria-pressed="false"><span class="pg-visit-label">:link</span><small>visited toggle</small></button>
+            <button type="button" data-state="focus" aria-pressed="false">:focus-visible<small>keyboard</small></button>
+            <button type="button" data-state="hover" aria-pressed="false">:hover<small>pointer over</small></button>
+            <button type="button" data-state="active" aria-pressed="false">:active<small>pressed</small></button>
+          </div>
+          <div class="pg-window"><span class="pg-link">HD<small>Helsingborgs Dagblad</small></span></div>
+          <p class="pg-status" role="status" aria-live="polite"></p>
+          <div class="pg-verdict"></div>
+        </div>
+        <div class="pg-order">
+          <div class="pg-actions">
+            <button type="button" data-action="shuffle">Shuffle the rules</button>
+            <button type="button" data-action="reset">Back to LVHA</button>
+          </div>
+          <ol class="pg-rules" aria-label="Rule order, first to last"></ol>
+        </div>
+      </div>
+    </section>
+
     <footer class="foot">
       <p>&copy; 2026 Mahad Abdullahi</p>
     </footer>
   </main>
+  <script src="playground.js" defer></script>
 </body>
 </html>
