@@ -73,3 +73,60 @@ code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-si
   .order li { grid-template-columns: 2rem 1fr; }
   .order li p { grid-column: 2; }
 }
+
+/* ===== State playground ===== */
+.playground[hidden] { display: none; }
+.playground { margin-top: 5rem; }
+.playground h2 {
+  font-size: clamp(2.8rem, 10vw, 6.5rem); line-height: .9; letter-spacing: -.06em; margin: 0 0 1rem; font-weight: 900;
+}
+.playground h2 span:first-child { color: var(--c-link); }
+.playground h2 span:last-child { color: var(--c-active); background: var(--c-active-bg); padding: 0 .15em; box-shadow: .12em .12em 0 var(--c-visited); }
+.pg-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+.playground button {
+  font: 600 .95rem ui-monospace, "SF Mono", Menlo, monospace; color: var(--ink); cursor: pointer;
+  background: var(--card); border: 2px solid var(--ink); border-radius: 10px; padding: .6rem .8rem;
+  box-shadow: 3px 3px 0 var(--ink); transition: transform .08s, box-shadow .08s;
+}
+.playground button:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+.playground button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.playground button:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 3px; }
+.playground button[disabled] { opacity: .3; cursor: default; box-shadow: none; transform: none; }
+.pg-toggles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .6rem; }
+.pg-toggles button { display: grid; gap: .15rem; text-align: left; }
+.pg-toggles small { font: 400 .75rem system-ui, sans-serif; color: var(--muted); }
+.pg-toggles button[aria-pressed=true] { background: var(--ink); color: #fff; }
+.pg-toggles button[aria-pressed=true] small { color: #c7c9e6; }
+.pg-window {
+  margin: 1rem 0; min-height: 13rem; display: grid; place-items: center;
+  background: var(--card); border: 2px solid var(--ink); border-radius: 18px;
+  background-image: radial-gradient(circle at 1px 1px, var(--rule) 1px, transparent 0); background-size: 14px 14px;
+}
+.pg-link { font-size: clamp(3rem, 8vw, 5rem); font-weight: 900; letter-spacing: -.03em; padding: 0 .25em; border-radius: 6px; text-underline-offset: .12em; text-align: center; line-height: 1.1; }
+.pg-link small { display: block; font-size: 1rem; font-weight: 500; letter-spacing: 0; }
+.pg-status { font: .85rem ui-monospace, Menlo, monospace; color: var(--muted); margin: 0 0 1rem; }
+.pg-verdict { background: var(--ink); color: #eceeff; border-radius: 14px; padding: 1rem 1.25rem; }
+.pg-verdict ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .5rem; }
+.pg-verdict code { color: #fde047; }
+.pg-verdict .pg-prop { color: #a5b4fc; }
+.pg-warn { margin-top: .9rem !important; padding-top: .9rem !important; border-top: 1px dashed #4b4f6b; color: #fecaca; }
+.pg-ok { margin: .9rem 0 0; color: #86efac; font-weight: 600; }
+.pg-actions { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.pg-actions [data-action=shuffle] { background: var(--c-active-bg); }
+.pg-rules { list-style: none; padding: 0; margin: 0; display: grid; gap: .55rem; }
+.pg-rule {
+  display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; gap: .75rem; align-items: center;
+  background: var(--card); border: 2px solid var(--rule); border-radius: 12px; padding: .6rem .75rem; cursor: grab;
+}
+.pg-rule.is-matching { border-color: var(--ink); box-shadow: 5px 5px 0 var(--c-visited); }
+.pg-rule.is-dragging { opacity: .5; border-style: dashed; }
+.pg-num { font-weight: 900; font-size: 1.5rem; color: var(--muted); text-align: center; }
+.pg-rule.is-matching .pg-num { color: var(--c-visited); }
+.pg-rule pre { margin: 0; font-size: .8rem; line-height: 1.4; overflow-x: auto; }
+.pg-move { display: grid; gap: .3rem; }
+.pg-move button { padding: .2rem .55rem; box-shadow: 2px 2px 0 var(--ink); }
+@media (max-width: 52rem) {
+  .pg-grid { grid-template-columns: 1fr; }
+  .pg-toggles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) { .playground button { transition: none; } }
