@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="robots" content="noindex">
@@ -12,41 +12,103 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Link Lab">
   <meta name="twitter:description" content="CSS pseudo-classes for link states: :link, :visited, :hover, :active.">
+  <link rel="stylesheet" href="style.css">
   <style>
+    /* The lesson: link states in LVHA order, with :focus-visible added before :hover.
+       All have the same specificity, so the last matching rule wins. */
     a:link {
-      color: green;
-      background-color: transparent;
+      color: var(--c-link);
       text-decoration: none;
     }
     a:visited {
-      color: pink;
-      background-color: transparent;
+      color: var(--c-visited);
       text-decoration: none;
     }
+    a:focus-visible {
+      color: var(--c-focus);
+      outline: 3px solid var(--c-focus);
+      outline-offset: 3px;
+    }
     a:hover {
-      color: red;
-      background-color: transparent;
+      color: var(--c-hover);
       text-decoration: underline;
     }
     a:active {
-      color: yellow;
-      background-color: transparent;
+      color: var(--c-active);
+      background-color: var(--c-active-bg);
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <a href="https://www.hd.se/2022-05-19/kommer-nagra-vuxna-dyka-upp" target="_blank" rel="noopener noreferrer" style="
-  border: royalblue 5px solid; padding: 10px; margin: 20px;
-  background-color: yellow; font-family: Verdana;">
-  HD</a>
-  <a href="https://www.svt.se/nyheter/lokalt/helsingborg/har-visas-ungdomarnas-ideer-om-helsingborg-upp" target="_blank" rel="noopener noreferrer" style="
-  border: red 5px solid; padding: 10px; margin: 20px;
-  background-color: greenyellow; font-family: Verdana;">
-  SVT</a>
-  <a href="https://www.linkedin.com/in/mahad-abdullahi-262b56228/" target="_blank" rel="noopener noreferrer" style="
-  border: black 5px solid; padding: 10px; margin: 20px;
-  background-color: lightblue; font-family: Verdana;">
-  LinkedIn</a>
+  <main class="wrap">
+    <header>
+      <h1>Link Lab</h1>
+      <p class="intro">One link, several states. Hover, click and revisit the three links below and watch the colour follow the rules in the stylesheet.</p>
+    </header>
+
+    <section aria-labelledby="try">
+      <h2 id="try">Try the links</h2>
+      <ul class="links">
+        <li><a class="hd" href="https://www.hd.se/2022-05-19/kommer-nagra-vuxna-dyka-upp" target="_blank" rel="noopener noreferrer">HD<small>Helsingborgs Dagblad</small></a></li>
+        <li><a class="svt" href="https://www.svt.se/nyheter/lokalt/helsingborg/har-visas-ungdomarnas-ideer-om-helsingborg-upp" target="_blank" rel="noopener noreferrer">SVT<small>SVT Nyheter Helsingborg</small></a></li>
+        <li><a class="linkedin" href="https://www.linkedin.com/in/mahad-abdullahi-262b56228/" target="_blank" rel="noopener noreferrer">LinkedIn<small>Profile</small></a></li>
+      </ul>
+    </section>
+
+
+    <section aria-labelledby="states">
+      <h2 id="states">The five states, side by side</h2>
+      <p class="note">Static specimens, so every state is visible at once. Colours match the rules below; each passes WCAG AA contrast.</p>
+      <ol class="specimens">
+        <li><span class="swatch s-link">HD</span><code>:link</code><span>Not visited yet</span></li>
+        <li><span class="swatch s-visited">HD</span><code>:visited</code><span>Already opened</span></li>
+        <li><span class="swatch s-focus">HD</span><code>:focus-visible</code><span>Reached with the keyboard</span></li>
+        <li><span class="swatch s-hover">HD</span><code>:hover</code><span>Under the pointer</span></li>
+        <li><span class="swatch s-active">HD</span><code>:active</code><span>Being pressed</span></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="order">
+      <h2 id="order">Why the order matters</h2>
+      <p class="note">All five selectors have the same specificity. When several states match at once, the rule written last wins. Remember it as <strong>L</strong>o<strong>V</strong>e <strong>HA</strong>te: link, visited, hover, active. Simplified colour names below; the page uses the exact values in its <code>&lt;style&gt;</code> block.</p>
+      <ol class="order">
+        <li>
+          <pre><code>a:link {
+  color: green;
+}</code></pre>
+          <p>First: the base colour of a link that has not been visited.</p>
+        </li>
+        <li>
+          <pre><code>a:visited {
+  color: pink;
+}</code></pre>
+          <p>Second: overrides :link once the page has been opened. Browsers only let it change colours, for privacy.</p>
+        </li>
+        <li>
+          <pre><code>a:focus-visible {
+  outline: 3px solid blue;
+}</code></pre>
+          <p>Third: the keyboard state. Placed before :hover so pointer states still win.</p>
+        </li>
+        <li>
+          <pre><code>a:hover {
+  color: red;
+}</code></pre>
+          <p>Fourth: comes after :visited, so a visited link still turns red under the pointer.</p>
+        </li>
+        <li>
+          <pre><code>a:active {
+  background: yellow;
+}</code></pre>
+          <p>Last: a pressed link is also hovered, so :active must come after :hover or it would never show.</p>
+        </li>
+      </ol>
+    </section>
+
+    <footer class="foot">
+      <p>&copy; 2026 Mahad Abdullahi</p>
+    </footer>
+  </main>
 </body>
 </html>
