@@ -173,3 +173,35 @@ code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-si
 @media (prefers-reduced-motion: no-preference) {
   :root:not([data-motion]) .playground button { transition: transform .08s, box-shadow .08s; }
 }
+
+/* Deeper parts: :visited privacy, focus, honest links */
+.deep h3 { font-size: 1.05rem; margin: 0 0 0.5rem; }
+.deep-grid, .tr-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); margin: 1rem 0; }
+.deep-card, .vp-demo, .fo-demo { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 1.25rem; }
+.deep-card p { margin: 0 0 0.75rem; }
+.deep button, .deep textarea { font: inherit; }
+.deep button { padding: 0.5rem 0.9rem; border: 1px solid var(--ink); border-radius: 8px; background: var(--ink); color: var(--card); cursor: pointer; }
+.vp-demo { border-top: 6px solid var(--c-visited); }
+.vp-link { font-size: 1.5rem; font-weight: 700; margin-right: 0.75rem; }
+.vp-hint { color: var(--muted); }
+.vp-out { display: grid; gap: 0.5rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin: 1rem 0 0; }
+.vp-out div { border: 1px solid var(--rule); border-radius: 8px; padding: 0.6rem 0.8rem; }
+.vp-out dt { font-size: 0.85rem; color: var(--muted); }
+.vp-out dd { margin: 0; font-family: ui-monospace, Menlo, monospace; }
+.vp-verdict { font-weight: 600; margin: 1rem 0 0; }
+.fo-demo { border-top: 6px solid var(--c-focus); }
+.fo-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.deep .fo-buttons button { background: var(--card); color: var(--ink); outline: none; }
+.deep .fo-buttons .fo-a:focus { outline: 3px solid var(--c-focus); outline-offset: 3px; }
+.deep .fo-buttons .fo-b:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 3px; }
+.fo-log { font-family: ui-monospace, Menlo, monospace; font-size: 0.9rem; padding-left: 1.5rem; min-height: 3rem; }
+kbd { font-family: ui-monospace, Menlo, monospace; border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 4px; padding: 0 0.3em; }
+.deep textarea { width: 100%; border: 1px solid var(--muted); border-radius: 8px; padding: 0.5rem; margin-bottom: 0.75rem; }
+.tr-results, .tr-links { padding-left: 1.25rem; margin: 0.75rem 0 0; }
+.tr-results li { margin-bottom: 0.4rem; }
+.tr-bad { color: var(--c-hover); }
+.tr-ok { color: var(--c-link); }
+.tr-links { max-height: 22rem; overflow: auto; font-size: 0.92rem; }
+.tr-blank pre { background: var(--bg); padding: 0.75rem; border-radius: 8px; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
+:root[data-motion="on"] .tr-results li, :root[data-motion="on"] .fo-log li:first-child { animation: deep-in 0.3s ease-out; }
+@keyframes deep-in { from { opacity: 0; transform: translateY(-4px); } }
