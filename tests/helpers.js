@@ -17,6 +17,9 @@ function watch(page) {
 }
 
 async function axe(page, options = {}) {
+  // Let entrance animations finish first: axe measures contrast on what is painted,
+  // and text caught mid fade-in reads as low contrast.
+  await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== 'running'));
   await page.addScriptTag({ path: path.join(__dirname, '..', 'node_modules', 'axe-core', 'axe.min.js') });
   const result = await page.evaluate((opts) => window.axe.run(document, opts), options);
   const summary = result.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`);
