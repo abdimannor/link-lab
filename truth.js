@@ -5,7 +5,18 @@
   const ask = document.getElementById('vp-ask');
   if (self && ask) {
     self.href = location.href.split('#')[0];
+    // The stylesheet's colours depend on the colour scheme, so read them from the page.
+    const probe = (v) => {
+      const p = document.createElement('span');
+      p.style.color = 'var(' + v + ')';
+      document.body.append(p);
+      const c = getComputedStyle(p).color;
+      p.remove();
+      return c;
+    };
     ask.addEventListener('click', () => {
+      document.getElementById('vp-visited').textContent = probe('--c-visited');
+      document.getElementById('vp-unvisited').textContent = probe('--c-link');
       const c = getComputedStyle(self).color;
       document.getElementById('vp-computed').textContent = c;
       const unvisited = document.getElementById('vp-unvisited').textContent;
