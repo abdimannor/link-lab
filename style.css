@@ -231,3 +231,6 @@ kbd { font-family: ui-monospace, Menlo, monospace; border: 1px solid var(--rule)
 :root[data-motion="on"] .tr-results li, :root[data-motion="on"] .fo-log li:first-child { animation: deep-in 0.3s ease-out; }
 @keyframes deep-in { from { opacity: 0; transform: translateY(-4px); } }
 .deep p a:is(:link, :visited) { text-decoration: underline; text-underline-offset: 0.15em; }
+
+/* Shared with the other lessons: the small label above the title. */
+.eyebrow { display: block; margin: 0 0 .9rem; font: 600 .8rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); }
