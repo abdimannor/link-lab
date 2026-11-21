@@ -28,7 +28,7 @@
 
   box.innerHTML = SCENARIOS.map((s, i) =>
     '<li class="ch-case" data-i="' + i + '">' +
-    '<span class="ch-specimen ' + s.on.map((k) => 'is-' + k).join(' ') + '">HD</span>' +
+    '<span class="ch-specimen ' + s.on.map((k) => 'is-' + k).join(' ') + '">CERN</span>' +
     '<span class="ch-text"><strong>' + s.label + '</strong><small>Matching: ' + s.on.map((k) => '<code>' + RULES[k].sel + '</code>').join(' + ') +
     '</small><small>Target: <span class="ch-target" style="color: var(--c-' + s.want + ')">' + RULES[s.want].sel + ' colour</span></small>' +
     '<small class="ch-why"></small></span><em class="ch-mark">Not yet</em></li>').join('');

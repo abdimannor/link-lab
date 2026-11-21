@@ -13,11 +13,11 @@ En länk ser ut som det enklaste på en sida, men den bär mycket. Lektionen bö
 
 ## Varifrån den kommer
 
-Den började som en övning 2023: en HTML-fil med tre länkar (HD, SVT, LinkedIn) som öppnas i nya flikar, och fyra regler för `a:link`, `a:visited`, `a:hover` och `a:active` i grönt, rosa, rött och gult. Originalet finns kvar: `git show 785d476:index.html`. Länkreglerna i sidans `<style>`-block är den övningen, med `:focus-visible` tillagd.
+Den började som en övning 2023: en HTML-fil med tre länkar som öppnas i nya flikar (i dag till den första webbplatsen hos CERN, Wikipedias artikel om hyperlänkar och Wayback Machine), och fyra regler för `a:link`, `a:visited`, `a:hover` och `a:active` i grönt, rosa, rött och gult. Originalet finns kvar som `original.html`. Länkreglerna i sidans `<style>`-block är den övningen, med `:focus-visible` tillagd.
 
 ## Vad du kan göra på sidan
 
-- Hovra, klicka och återbesök de tre ursprungliga länkarna.
+- Hovra, klicka och återbesök de tre länkarna.
 - Tvinga fram valfri blandning av tillstånd på en länk och flytta om reglerna i lekplatsen, och laga sedan en trasig ordning i utmaningen.
 - Fråga webbläsaren vilken färg en länk till sidan du står på har, och se `getComputedStyle` svara med den obesökta färgen.
 - Fokusera tre knappar med mus och tangentbord och läs en logg över vilka pseudoklasser som matchade.
@@ -32,4 +32,4 @@ npx playwright install chromium
 npm test                          # Playwright: sidans hälsa, axe, rörelsereglaget, funktionerna
 ```
 
-CI kör HTML-kontrollen (`check.yml`) och Playwright-sviten (`test.yml`). Animationer följer rörelsereglaget i kursraden, som är avslaget från start när systemet ber om reducerad rörelse.
+CI kör HTML-kontrollen (`check.yml`) och Playwright-sviten (`test.yml`). Animationer är på från start; rörelseknappen i kursraden pausar dem och valet sparas.
