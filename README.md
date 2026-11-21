@@ -1,6 +1,6 @@
 # Link Lab
 
-Live: [link-lab-flax.vercel.app](https://link-lab-flax.vercel.app/)
+Live: [link-lab-flax.vercel.app](https://link-lab-flax.vercel.app/) · [Svenska](README.sv.md)
 
 Lesson 3 of 4 in a small web course built from my first coursework pages from 2023. Each lesson keeps the original exercise, explains it, and adds something to try; a course bar at the top tracks which lessons you have finished (stored only in your browser) and links to the next one.
 
@@ -26,6 +26,16 @@ The page is now a small specimen sheet for link states. The three links (HD, SVT
 
 The course bar, the next-lesson block and the motion switch come from `course.css` and `course.js`, which are identical in all four repos.
 
+## What a link really is
+
+From the state rules the lesson now goes outward, to what a link carries beyond its colour:
+
+- **Why `:visited` keeps a secret.** Pages once read people's browsing history by styling `:visited` and measuring the result. Browsers now allow only colour properties on visited links and make `getComputedStyle` answer as if every link were unvisited ([MDN: Privacy and the :visited selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors/Privacy_and_:visited)). A button asks the browser for the colour of a link to the page you are on: you see pink, the script is told green.
+- **Focus.** `:focus` matches however focus arrived; `:focus-visible` only when the browser decides it should be shown, usually for the keyboard ([MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:focus-visible)). Three buttons and a live log compare mouse and keyboard focus, and one has its outline removed with nothing instead, to show why [WCAG 2.4.7](https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html) and [2.4.11](https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html) exist.
+- **Links that tell the truth.** A checker flags vague texts ("läs mer", "click here"), bare URLs and duplicates; a second button builds the page's own links list as a screen reader would list it. The section also explains `target="_blank"`: the 2023 links had no `rel`, browsers now treat `target="_blank"` as `noopener` by default, and `noreferrer` also drops the `Referer` header ([MDN: noopener](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/noopener), [MDN: noreferrer](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/noreferrer)).
+
+The original 2023 page is still in the history: `git show 785d476:index.html`.
+
 ## Open it locally
 
 No build step or server is needed. Clone the repository and open `index.html` in a browser:
@@ -37,6 +47,18 @@ open index.html
 ```
 
 On Windows or Linux, double-click the file or drag it into a browser window instead of `open`.
+
+Some parts read the live page, so a local server is closer to the real site: `python3 -m http.server 8000`.
+
+## Tests
+
+```
+npm ci
+npx playwright install chromium
+npm test
+```
+
+The Playwright suite checks that the page loads without errors, has no axe violations, that the motion switch starts off under reduced motion and remembers the choice, and that the :visited, focus and link-text demos behave as described. CI runs it (`test.yml`) next to the HTML checker (`check.yml`).
 
 The site is hosted on Vercel; every push to `master` redeploys it.
 

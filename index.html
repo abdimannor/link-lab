@@ -7,13 +7,13 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <script>(()=>{let m=null;try{m=localStorage.getItem('motion')}catch(e){}document.documentElement.dataset.motion=m==='on'||m==='off'?m:(matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on')})()</script>
   <title>Link Lab</title>
-  <meta name="description" content="CSS pseudo-classes for link states: :link, :visited, :hover, :active.">
+  <meta name="description" content="What a link really is: the five link states and their order, why :visited keeps a secret, keyboard focus, and link text that tells the truth.">
   <meta property="og:title" content="Link Lab">
-  <meta property="og:description" content="CSS pseudo-classes for link states: :link, :visited, :hover, :active.">
+  <meta property="og:description" content="What a link really is: the five link states and their order, why :visited keeps a secret, keyboard focus, and link text that tells the truth.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Link Lab">
-  <meta name="twitter:description" content="CSS pseudo-classes for link states: :link, :visited, :hover, :active.">
+  <meta name="twitter:description" content="What a link really is: the five link states and their order, why :visited keeps a secret, keyboard focus, and link text that tells the truth.">
   <meta property="og:image" content="https://link-lab-flax.vercel.app/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -160,6 +160,85 @@
       <p class="ch-score" role="status" aria-live="polite"></p>
     </section>
 
+    <section class="deep" id="visited-privacy" aria-labelledby="vp-title">
+      <h2 id="vp-title">Why <code>:visited</code> keeps a secret</h2>
+      <p class="note">The order section says browsers only let <code>:visited</code> change colours. Here is why. A page could once draw hundreds of hidden links to other sites, style <code>:visited</code> differently and ask the browser which ones had changed. That read your browsing history in milliseconds, without asking. Browsers closed the hole in two ways, described on MDN's <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors/Privacy_and_:visited">Privacy and the :visited selector</a>.</p>
+      <div class="deep-grid">
+        <div class="deep-card">
+          <h3>1. Only colours</h3>
+          <p>A visited link may change only these properties: <code>color</code>, <code>background-color</code>, <code>border-color</code> (and its sub-properties), <code>column-rule-color</code>, <code>outline-color</code>, <code>text-decoration-color</code>, <code>text-emphasis-color</code>, and the colour parts of SVG <code>fill</code> and <code>stroke</code>. Size, position and layout never change, so nothing measurable moves. Even a difference in transparency between the two states is ignored.</p>
+        </div>
+        <div class="deep-card">
+          <h3>2. Scripts are told a white lie</h3>
+          <p><code>getComputedStyle</code> and similar functions always answer as if the link were unvisited. A sibling selector such as <code>:visited + span</code> also styles the span as if the link were unvisited.</p>
+        </div>
+      </div>
+      <div class="vp-demo">
+        <p class="vp-link-row"><a class="vp-link" id="vp-self" href="./">This page</a> <span class="vp-hint">You are on this page right now, so this link is in your history and your eyes should see the visited colour (pink).</span></p>
+        <button type="button" id="vp-ask">Ask the browser with getComputedStyle</button>
+        <dl class="vp-out" aria-live="polite">
+          <div><dt>Visited colour in the stylesheet</dt><dd id="vp-visited">rgb(190, 24, 93)</dd></div>
+          <div><dt>Unvisited colour in the stylesheet</dt><dd id="vp-unvisited">rgb(22, 101, 52)</dd></div>
+          <div><dt>What <code>getComputedStyle</code> reports</dt><dd id="vp-computed">not asked yet</dd></div>
+        </dl>
+        <p class="vp-verdict" id="vp-verdict"></p>
+      </div>
+    </section>
+
+    <section class="deep" id="focus" aria-labelledby="fo-title">
+      <h2 id="fo-title">Focus: the state the keyboard sees</h2>
+      <p class="note"><code>:focus</code> matches whenever an element has focus, however it got there. <code>:focus-visible</code> matches only when the browser decides, by its own heuristics, that the focus should be shown, which in practice usually means keyboard focus and not a mouse click on a link or button (<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:focus-visible">MDN: :focus-visible</a>). That is why this page styles <code>:focus-visible</code>: keyboard users get a clear ring, mouse users are not shown a ring after every click.</p>
+      <div class="fo-demo">
+        <p class="fo-how">Click a button below with the mouse, then press <kbd>Tab</kbd> to reach the next one. The log shows what the browser matched.</p>
+        <div class="fo-buttons">
+          <button type="button" class="fo-a">Styled with <code>:focus</code></button>
+          <button type="button" class="fo-b">Styled with <code>:focus-visible</code></button>
+          <button type="button" class="fo-c">Outline removed, nothing instead</button>
+        </div>
+        <ol class="fo-log" id="fo-log" aria-label="Focus log, newest first"></ol>
+      </div>
+      <div class="deep-grid">
+        <div class="deep-card">
+          <h3>Never remove focus without a replacement</h3>
+          <p>The third button above has <code>outline: none</code> and no other style. With a keyboard you cannot tell when it has focus. <a href="https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html">WCAG 2.4.7 Focus Visible</a> (Level AA) asks that any keyboard operable interface has a mode where the keyboard focus indicator is visible. If you remove the default outline, put something at least as clear in its place.</p>
+        </div>
+        <div class="deep-card">
+          <h3>And do not hide it behind your own content</h3>
+          <p><a href="https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html">WCAG 2.4.11 Focus Not Obscured (Minimum)</a> (Level AA) says a focused component must not be entirely hidden by content the author created, such as a sticky header or a cookie banner.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="deep" id="truth" aria-labelledby="tr-title">
+      <h2 id="tr-title">Links that tell the truth</h2>
+      <p class="note">Screen readers can list every link on a page, out of context, the way a sighted reader skims. In that list ten links called "read more" (or "läs mer") are ten identical lines. A link's text should say where it goes.</p>
+      <div class="tr-grid">
+        <div class="deep-card">
+          <h3><label for="tr-input">Check your link texts</label></h3>
+          <p>One link text per line.</p>
+          <textarea id="tr-input" rows="6">läs mer
+Läs SVT:s reportage om ungdomarnas idéer för Helsingborg
+click here
+https://www.hd.se/2022-05-19/kommer-nagra-vuxna-dyka-upp
+read more</textarea>
+          <button type="button" id="tr-check">Check</button>
+          <ul class="tr-results" id="tr-results" aria-live="polite"></ul>
+        </div>
+        <div class="deep-card">
+          <h3>This page's links list</h3>
+          <p>Every link on this page with the name it gives to assistive technology, roughly as a screen reader's links list shows it. The name here is the visible text or <code>aria-label</code>; a real screen reader follows the full accessible name rules.</p>
+          <button type="button" id="tr-list">Build the links list</button>
+          <ol class="tr-links" id="tr-links"></ol>
+        </div>
+      </div>
+      <div class="deep-card tr-blank">
+        <h3><code>target="_blank"</code> and <code>rel</code></h3>
+        <p>The 2023 exercise opened its three links with <code>target="_blank"</code> and nothing else. A page opened that way used to get <code>window.opener</code>, a handle back to the page that opened it, which it could use to send that tab somewhere else. <code>rel="noopener"</code> removes the handle. MDN notes that today <code>target="_blank"</code> on <code>&lt;a&gt;</code> implicitly behaves like <code>rel="noopener"</code> (<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/noopener">MDN: rel=noopener</a>). <code>rel="noreferrer"</code> goes further: the browser leaves out the <code>Referer</code> header and also behaves as if <code>noopener</code> were set (<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/noreferrer">MDN: rel=noreferrer</a>). The three links at the top carry both, which still helps in older browsers and keeps the source of a click private.</p>
+        <pre><code>&lt;a href="https://www.svt.se/..." target="_blank" rel="noopener noreferrer"&gt;SVT&lt;/a&gt;</code></pre>
+        <p>A new tab is still a surprise for some people, so it is kind to say so in the link, as a word or hidden text.</p>
+      </div>
+    </section>
+
   </main>
   <nav class="course-next" lang="sv" aria-label="N&auml;sta lektion">
     <p>N&auml;sta lektion</p>
@@ -167,6 +246,7 @@
   </nav>
   <script src="playground.js" defer></script>
   <script src="challenge.js" defer></script>
+  <script src="truth.js" defer></script>
   <script src="course.js" defer></script>
 </body>
 </html>
