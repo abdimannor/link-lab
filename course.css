@@ -1,60 +1,99 @@
-/* Course bar: one shared snippet across the four lessons. Each site sets the three colours. */
+/* Webbkursen: shared tokens, course bar, controls and lesson pager.
+   Identical in all four lessons; each site sets only --accent (and --accent-text for text uses). */
+:root {
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --ink: #151a2d;
+  --muted: #59607a;
+  --line: #e2e5ef;
+  --accent: #2f5bea;
+  --accent-text: var(--accent);
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --radius: 14px;
+  --radius-code: 10px;
+  --shadow: 0 1px 2px rgb(0 0 0 / .05), 0 8px 24px rgb(20 30 60 / .06);
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1220;
+    --card: #161b2e;
+    --ink: #e6e9f5;
+    --muted: #9aa1bd;
+    --line: #262c44;
+    --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .25);
+  }
+}
+
+/* Course bar */
 .course-bar {
-  --cb-bg: var(--course-bg, #111);
-  --cb-ink: var(--course-ink, #fff);
-  --cb-accent: var(--course-accent, #ffd23f);
-  display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .75rem;
-  padding: .45rem clamp(.75rem, 3vw, 1.5rem);
-  background: var(--cb-bg); color: var(--cb-ink);
-  font: 600 .8125rem/1.3 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  letter-spacing: 0;
+  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.5rem;
+  max-width: 72rem; margin: 0 auto; padding: .9rem clamp(1rem, 4vw, 2rem);
+  color: var(--ink); font: 500 .875rem/1.3 var(--sans);
 }
-.course-bar .course-name { margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: .7rem; opacity: .85; }
-.course-bar ol { display: flex; flex-wrap: wrap; gap: .25rem; margin: 0; padding: 0; list-style: none; }
-.course-bar a {
-  display: inline-flex; align-items: center; gap: .35rem;
-  padding: .3rem .6rem; border-radius: 999px;
-  border: 1px solid transparent;
-}
-.course-bar a:is(:link, :visited, :hover, :active) { color: inherit; background: transparent; text-decoration: none; outline: 0; }
-.course-bar a:hover { text-decoration: underline; }
-.course-bar a:focus-visible { outline: 2px solid var(--cb-accent); outline-offset: 2px; }
-.course-bar a[aria-current="page"]:is(:link, :visited, :hover, :active) { background: var(--cb-accent); color: var(--cb-bg); font-weight: 800; }
+.course-bar .course-name { margin: 0; font-weight: 750; letter-spacing: -.01em; font-size: .95rem; }
+.course-bar ol { display: flex; flex-wrap: wrap; gap: .15rem 1.1rem; margin: 0; padding: 0; list-style: none; }
+.course-bar ol a { display: inline-flex; align-items: baseline; gap: .4rem; padding: .35rem 0; border-bottom: 2px solid transparent; }
+.course-bar ol a:is(:link, :visited, :hover, :active) { color: var(--muted); background: transparent; text-decoration: none; outline: 0; }
+.course-bar ol a:hover { color: var(--ink); }
+.course-bar ol a:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; border-radius: 4px; }
+.course-bar ol a[aria-current="page"]:is(:link, :visited, :hover, :active) { color: var(--ink); border-bottom-color: var(--accent); }
 .course-bar .course-num { font-variant-numeric: tabular-nums; }
-.course-bar .course-mark { font-weight: 800; }
+.course-bar .course-mark { color: var(--accent-text); }
 .course-bar .course-mark[hidden] { display: none; }
-.course-motion { display: inline-flex; align-items: center; margin-left: auto; }
-.course-motion button {
-  font: inherit; color: inherit; background: transparent; cursor: pointer;
-  padding: .3rem .6rem; border-radius: 999px; border: 1px solid currentColor;
+
+/* Quiet icon controls (controls-spec) */
+.course-controls { display: inline-flex; align-items: center; gap: .5rem; margin-left: auto; }
+.course-icon {
+  display: inline-grid; place-items: center; inline-size: 34px; block-size: 34px; padding: 0;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent); border-radius: 50%;
+  background: transparent; color: inherit; cursor: pointer;
 }
-.course-motion button:focus-visible { outline: 2px solid var(--cb-accent); outline-offset: 2px; }
+.course-icon:hover, .course-icon:focus-visible { background: color-mix(in srgb, currentColor 10%, transparent); }
+.course-icon:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.course-icon svg { inline-size: 18px; block-size: 18px; }
+:root[data-motion="on"] .course-icon { transition: background-color 150ms; }
+
+/* Previous / next lesson */
 .course-next {
-  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1.5rem;
-  max-width: 60rem; margin: 3rem auto 0; padding: 1.25rem clamp(1rem, 4vw, 2rem);
-  background: var(--course-bg, #111); color: var(--course-ink, #fff);
-  font: 600 1rem/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  max-width: 72rem; margin: 4rem auto 0; padding: 0 clamp(1rem, 4vw, 2rem) 3rem;
+  font: 500 1rem/1.4 var(--sans);
 }
-.course-next p { margin: 0; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; opacity: .85; }
-.course-next a:is(:link, :visited, :hover, :active) { color: inherit; background: transparent; font-weight: 800; font-size: 1.25rem; text-decoration: underline; text-underline-offset: .2em; }
-.course-next a:focus-visible { outline: 2px solid var(--course-accent, #ffd23f); outline-offset: 3px; }
-:root[data-motion="on"] .course-bar a, :root[data-motion="on"] .course-motion button { transition: background-color .2s, color .2s; }
+.course-next a {
+  display: grid; gap: .25rem; padding: 1.25rem 1.4rem; border-radius: var(--radius);
+  box-shadow: var(--shadow); border: 1px solid var(--line);
+}
+.course-next a:is(:link, :visited, :hover, :active) { color: var(--ink); background: var(--card); text-decoration: none; }
+.course-next a:hover strong { color: var(--accent-text); }
+.course-next a:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; }
+.course-next .course-dir { font-size: .85rem; color: var(--muted); }
+.course-next strong { font-size: 1.2rem; font-weight: 750; letter-spacing: -.02em; }
+.course-next .course-later { grid-column: 2; text-align: right; }
+@media (max-width: 34rem) {
+  .course-next { grid-template-columns: 1fr; }
+  .course-next .course-later { grid-column: auto; }
+}
 
 /* Course complete card: shown by course.js on the last lesson when all four are done. */
 .course-complete {
-  max-width: 60rem; margin: 3rem auto 0; padding: clamp(1.25rem, 4vw, 2.25rem) clamp(1rem, 4vw, 2rem);
-  background: var(--course-accent, #ffd23f); color: var(--course-bg, #111);
-  font: 500 1rem/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  max-width: 72rem; margin: 3rem auto 0; padding: clamp(1.25rem, 4vw, 2.25rem) clamp(1rem, 4vw, 2rem);
+  background: var(--card); color: var(--ink); border-radius: var(--radius); box-shadow: var(--shadow);
+  font: 500 1rem/1.5 var(--sans);
 }
-.course-complete h2 { margin: 0 0 .25rem; font-size: clamp(2rem, 6vw, 3.25rem); font-weight: 900; line-height: 1; letter-spacing: -.02em; }
-.course-complete > p { margin: 0 0 1.25rem; font-weight: 700; }
+.course-complete h2 { margin: 0 0 .25rem; font-size: clamp(2rem, 6vw, 3rem); font-weight: 750; line-height: 1.05; letter-spacing: -.02em; }
+.course-complete > p { margin: 0 0 1.25rem; color: var(--muted); }
 .course-complete ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: .75rem; margin: 0; padding: 0; list-style: none; }
-.course-complete li { display: flex; flex-direction: column; gap: .2rem; padding: .85rem 1rem; background: var(--course-bg, #111); color: var(--course-ink, #fff); }
-.course-complete .course-num { font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; opacity: .85; }
-.course-complete strong { font-size: 1.15rem; }
-.course-complete li::before { content: "\2713"; font-weight: 900; color: var(--course-accent, #ffd23f); }
-:root[data-motion="on"] .course-complete li { animation: course-tick .5s cubic-bezier(.2, .8, .2, 1.2) both; }
-:root[data-motion="on"] .course-complete li:nth-child(2) { animation-delay: .1s; }
-:root[data-motion="on"] .course-complete li:nth-child(3) { animation-delay: .2s; }
-:root[data-motion="on"] .course-complete li:nth-child(4) { animation-delay: .3s; }
-@keyframes course-tick { from { opacity: 0; transform: translateY(.75rem) scale(.96); } }
+.course-complete li { display: flex; flex-direction: column; gap: .2rem; padding: .85rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); }
+.course-complete .course-num { font-size: .75rem; color: var(--muted); }
+.course-complete strong { font-size: 1.1rem; }
+.course-complete li::before { content: "\2713"; font-weight: 750; color: var(--accent-text); }
+:root[data-motion="on"] .course-complete li { animation: course-rise 400ms ease-out both; }
+:root[data-motion="on"] .course-complete li:nth-child(2) { animation-delay: 60ms; }
+:root[data-motion="on"] .course-complete li:nth-child(3) { animation-delay: 120ms; }
+:root[data-motion="on"] .course-complete li:nth-child(4) { animation-delay: 180ms; }
+
+/* The one entrance: fade and an 8px rise, staggered 60ms through --i. */
+:root[data-motion="on"] .rise { animation: course-rise 400ms ease-out both; animation-delay: calc(var(--i, 0) * 60ms); }
+@keyframes course-rise { from { opacity: 0; transform: translateY(8px); } }
