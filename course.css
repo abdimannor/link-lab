@@ -1,99 +1,138 @@
-/* Webbkursen: shared tokens, course bar, controls and lesson pager.
-   Identical in all four lessons; each site sets only --accent (and --accent-text for text uses). */
+/* Webbkursen: shared tokens, course bar, quiet controls and lesson footer.
+   Byte-identical in all four lessons. Each lesson sets only --accent and
+   --accent-text (AA text on the page) in its own stylesheet.
+   Pages whose own design is dark ask for the dark bar with
+   <html data-scheme="dark">; light-only pages pin it with data-scheme="light". */
 :root {
-  --bg: #f6f7fb;
-  --card: #ffffff;
-  --ink: #151a2d;
-  --muted: #59607a;
-  --line: #e2e5ef;
-  --accent: #2f5bea;
-  --accent-text: var(--accent);
-  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
-  --radius: 14px;
-  --radius-code: 10px;
-  --shadow: 0 1px 2px rgb(0 0 0 / .05), 0 8px 24px rgb(20 30 60 / .06);
+  --c-bg: #f6f7fb;
+  --c-card: #fff;
+  --c-ink: #151a2d;
+  --c-muted: #59607a;
+  --c-line: rgb(21 26 45 / .1);
+  --c-accent: var(--accent, #2f5bea);
+  --c-accent-text: var(--accent-text, var(--accent, #2f5bea));
+  --c-shadow: 0 1px 2px rgb(0 0 0 / .05), 0 8px 24px rgb(20 30 60 / .06);
+  --c-radius: 14px;
+  --c-radius-code: 10px;
+  --c-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --c-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --c-measure: 68ch;
   color-scheme: light dark;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0e1220;
-    --card: #161b2e;
-    --ink: #e6e9f5;
-    --muted: #9aa1bd;
-    --line: #262c44;
-    --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .25);
+  :root:not([data-scheme="light"]) {
+    --c-bg: #0e1220;
+    --c-card: #161b2e;
+    --c-ink: #e6e9f5;
+    --c-muted: #9aa1bd;
+    --c-line: rgb(230 233 245 / .12);
+    --c-shadow: 0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .25);
   }
 }
+:root[data-scheme="dark"] {
+  --c-bg: #0e1220;
+  --c-card: #161b2e;
+  --c-ink: #e6e9f5;
+  --c-muted: #9aa1bd;
+  --c-line: rgb(230 233 245 / .12);
+  --c-shadow: 0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .25);
+  color-scheme: dark;
+}
+:root[data-scheme="light"] { color-scheme: light; }
 
-/* Course bar */
+/* ---- course bar ---- */
 .course-bar {
-  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.5rem;
-  max-width: 72rem; margin: 0 auto; padding: .9rem clamp(1rem, 4vw, 2rem);
-  color: var(--ink); font: 500 .875rem/1.3 var(--sans);
+  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.75rem;
+  box-sizing: border-box;
+  padding: .7rem clamp(1rem, 4vw, 2.5rem);
+  background: var(--c-bg); color: var(--c-ink);
+  border-bottom: 1px solid var(--c-line);
+  font: 500 .875rem/1.3 var(--c-sans);
+  letter-spacing: 0; text-transform: none; text-align: left;
 }
-.course-bar .course-name { margin: 0; font-weight: 750; letter-spacing: -.01em; font-size: .95rem; }
-.course-bar ol { display: flex; flex-wrap: wrap; gap: .15rem 1.1rem; margin: 0; padding: 0; list-style: none; }
-.course-bar ol a { display: inline-flex; align-items: baseline; gap: .4rem; padding: .35rem 0; border-bottom: 2px solid transparent; }
-.course-bar ol a:is(:link, :visited, :hover, :active) { color: var(--muted); background: transparent; text-decoration: none; outline: 0; }
-.course-bar ol a:hover { color: var(--ink); }
-.course-bar ol a:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; border-radius: 4px; }
-.course-bar ol a[aria-current="page"]:is(:link, :visited, :hover, :active) { color: var(--ink); border-bottom-color: var(--accent); }
-.course-bar .course-num { font-variant-numeric: tabular-nums; }
-.course-bar .course-mark { color: var(--accent-text); }
+.course-bar .course-name { margin: 0; font-weight: 750; font-size: .95rem; letter-spacing: -.01em; }
+.course-bar ol { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: 0; padding: 0; list-style: none; }
+.course-bar li { margin: 0; padding: 0; max-width: none; }
+.course-bar li::before, .course-bar li::marker { content: none; }
+.course-bar a { display: inline-flex; align-items: center; gap: .4rem; padding: .4rem 0; border-bottom: 2px solid transparent; font: inherit; }
+.course-bar a:is(:link, :visited, :hover, :active) { color: var(--c-muted); background: transparent; text-decoration: none; }
+.course-bar a:hover { color: var(--c-ink); }
+.course-bar a:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; border-radius: 2px; }
+.course-bar a[aria-current="page"]:is(:link, :visited, :hover, :active) { color: var(--c-ink); font-weight: 650; border-bottom-color: var(--c-accent); }
+.course-bar .course-num { font: 500 .8em var(--c-mono); font-variant-numeric: tabular-nums; }
+.course-bar .course-mark { display: inline-flex; color: var(--c-accent-text); }
+.course-bar .course-mark svg { display: block; }
 .course-bar .course-mark[hidden] { display: none; }
-
-/* Quiet icon controls (controls-spec) */
-.course-controls { display: inline-flex; align-items: center; gap: .5rem; margin-left: auto; }
-.course-icon {
-  display: inline-grid; place-items: center; inline-size: 34px; block-size: 34px; padding: 0;
-  border: 1px solid color-mix(in srgb, currentColor 22%, transparent); border-radius: 50%;
-  background: transparent; color: inherit; cursor: pointer;
+@media (max-width: 40rem) {
+  .course-bar { gap: .25rem 1rem; }
+  .course-bar ol { order: 1; flex-basis: 100%; gap: 0 .9rem; font-size: .8125rem; }
 }
-.course-icon:hover, .course-icon:focus-visible { background: color-mix(in srgb, currentColor 10%, transparent); }
-.course-icon:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
-.course-icon svg { inline-size: 18px; block-size: 18px; }
-:root[data-motion="on"] .course-icon { transition: background-color 150ms; }
 
-/* Previous / next lesson */
+/* ---- quiet icon controls ---- */
+.course-controls { display: inline-flex; align-items: center; gap: .5rem; margin-left: auto; }
+.course-icon-btn {
+  display: inline-grid; place-items: center; box-sizing: border-box;
+  width: 34px; height: 34px; margin: 0; padding: 0; border-radius: 999px;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  background: transparent; color: inherit; cursor: pointer; box-shadow: none;
+  font: inherit;
+  transition: background-color 150ms;
+}
+.course-icon-btn:hover, .course-icon-btn:focus-visible { background: color-mix(in srgb, currentColor 10%, transparent); }
+.course-icon-btn:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.course-icon-btn svg { display: block; }
+html[data-motion="off"] .course-icon-btn { transition: none; }
+/* Both icons ship in the markup; html[data-motion] (set before first paint) picks one. */
+.course-motion .icon-play { display: none; }
+html[data-motion="off"] .course-motion .icon-play { display: block; }
+html[data-motion="off"] .course-motion .icon-pause { display: none; }
+
+/* ---- lesson footer: previous / next ---- */
 .course-next {
   display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-  max-width: 72rem; margin: 4rem auto 0; padding: 0 clamp(1rem, 4vw, 2rem) 3rem;
-  font: 500 1rem/1.4 var(--sans);
+  box-sizing: border-box; max-width: 76rem; margin: 5rem auto 0; padding: 2rem clamp(1rem, 4vw, 2.5rem) 3rem;
+  border-top: 1px solid var(--c-line);
+  font: 500 1rem/1.4 var(--c-sans); color: var(--c-ink);
 }
 .course-next a {
-  display: grid; gap: .25rem; padding: 1.25rem 1.4rem; border-radius: var(--radius);
-  box-shadow: var(--shadow); border: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: .3rem;
+  padding: 1.1rem 1.25rem; border-radius: var(--c-radius);
+  background: var(--c-card); box-shadow: var(--c-shadow); border: 1px solid var(--c-line);
 }
-.course-next a:is(:link, :visited, :hover, :active) { color: var(--ink); background: var(--card); text-decoration: none; }
-.course-next a:hover strong { color: var(--accent-text); }
-.course-next a:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; }
-.course-next .course-dir { font-size: .85rem; color: var(--muted); }
-.course-next strong { font-size: 1.2rem; font-weight: 750; letter-spacing: -.02em; }
-.course-next .course-later { grid-column: 2; text-align: right; }
-@media (max-width: 34rem) {
+.course-next a:is(:link, :visited, :hover, :active) { color: var(--c-ink); text-decoration: none; }
+.course-next a:hover { border-color: var(--c-accent); }
+.course-next a:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 3px; }
+.course-next .course-next-label { font-size: .85rem; color: var(--c-muted); }
+.course-next .course-next-title { font-weight: 750; font-size: 1.2rem; letter-spacing: -.02em; }
+.course-next .course-next-from { grid-column: 1; }
+.course-next .course-next-to { grid-column: 2; text-align: right; }
+@media (max-width: 40rem) {
   .course-next { grid-template-columns: 1fr; }
-  .course-next .course-later { grid-column: auto; }
+  .course-next .course-next-from, .course-next .course-next-to { grid-column: 1; }
 }
 
-/* Course complete card: shown by course.js on the last lesson when all four are done. */
+/* ---- course complete card (course.js, last lesson only) ---- */
 .course-complete {
-  max-width: 72rem; margin: 3rem auto 0; padding: clamp(1.25rem, 4vw, 2.25rem) clamp(1rem, 4vw, 2rem);
-  background: var(--card); color: var(--ink); border-radius: var(--radius); box-shadow: var(--shadow);
-  font: 500 1rem/1.5 var(--sans);
+  box-sizing: border-box; max-width: 76rem; margin: 4rem auto 0; padding: clamp(1.25rem, 4vw, 2.25rem);
+  background: var(--c-card); color: var(--c-ink); border-radius: var(--c-radius); box-shadow: var(--c-shadow);
+  border-top: 4px solid var(--c-accent);
+  font: 500 1rem/1.5 var(--c-sans);
 }
-.course-complete h2 { margin: 0 0 .25rem; font-size: clamp(2rem, 6vw, 3rem); font-weight: 750; line-height: 1.05; letter-spacing: -.02em; }
-.course-complete > p { margin: 0 0 1.25rem; color: var(--muted); }
+.course-complete h2 { margin: 0 0 .25rem; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 750; letter-spacing: -.02em; }
+.course-complete > p { margin: 0 0 1.25rem; color: var(--c-muted); }
 .course-complete ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: .75rem; margin: 0; padding: 0; list-style: none; }
-.course-complete li { display: flex; flex-direction: column; gap: .2rem; padding: .85rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); }
-.course-complete .course-num { font-size: .75rem; color: var(--muted); }
+.course-complete li { display: flex; flex-direction: column; gap: .2rem; padding: .85rem 1rem; border: 1px solid var(--c-line); border-radius: var(--c-radius-code); }
+.course-complete .course-num { font: .75rem var(--c-mono); color: var(--c-muted); }
 .course-complete strong { font-size: 1.1rem; }
-.course-complete li::before { content: "\2713"; font-weight: 750; color: var(--accent-text); }
-:root[data-motion="on"] .course-complete li { animation: course-rise 400ms ease-out both; }
-:root[data-motion="on"] .course-complete li:nth-child(2) { animation-delay: 60ms; }
-:root[data-motion="on"] .course-complete li:nth-child(3) { animation-delay: 120ms; }
-:root[data-motion="on"] .course-complete li:nth-child(4) { animation-delay: 180ms; }
+.course-complete li::before { content: "\2713"; font-weight: 800; color: var(--c-accent-text); }
 
-/* The one entrance: fade and an 8px rise, staggered 60ms through --i. */
-:root[data-motion="on"] .rise { animation: course-rise 400ms ease-out both; animation-delay: calc(var(--i, 0) * 60ms); }
+/* ---- motion: on unless the visitor turned it off (html[data-motion="off"]) ---- */
 @keyframes course-rise { from { opacity: 0; transform: translateY(8px); } }
+html:not([data-motion="off"]) { scroll-behavior: smooth; }
+html:not([data-motion="off"]) .rise { animation: course-rise 400ms cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 60ms); }
+html:not([data-motion="off"]) .course-complete li { animation: course-rise 400ms ease both; }
+html:not([data-motion="off"]) .course-complete li:nth-child(2) { animation-delay: 60ms; }
+html:not([data-motion="off"]) .course-complete li:nth-child(3) { animation-delay: 120ms; }
+html:not([data-motion="off"]) .course-complete li:nth-child(4) { animation-delay: 180ms; }
+
+.course-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

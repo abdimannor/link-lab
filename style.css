@@ -1,6 +1,9 @@
 /* Link Lab: page layout. The link-state rules themselves stay in the
    <style> block in index.html, because they are the lesson. */
 :root {
+  /* Shared tokens from course.css under this lesson's short names. */
+  --bg: var(--c-bg); --card: var(--c-card); --ink: var(--c-ink); --muted: var(--c-muted); --line: var(--c-line);
+  --sans: var(--c-sans); --mono: var(--c-mono); --radius: var(--c-radius); --radius-code: var(--c-radius-code); --shadow: var(--c-shadow);
   --accent: #0b8a8c;
   --accent-text: #08706f; /* AA on the page and on cards */
   --rule: var(--line);
