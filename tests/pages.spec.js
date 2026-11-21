@@ -34,3 +34,14 @@ test('the front page is a lesson: course bar, hero, framed original, pager', asy
   await expect(page.locator('.course-next a[rel="prev"]')).toContainText('Tech World');
   await expect(page.locator('.course-next a[rel="next"]')).toContainText('Dress Code');
 });
+
+test.describe('dark colour scheme', () => {
+  test.use({ colorScheme: 'dark' });
+  test('./ passes axe in dark mode with the demos opened', async ({ page }) => {
+    await page.goto('./');
+    await page.locator('#tr-check').click();
+    await page.locator('#tr-list').click();
+    await page.locator('#vp-ask').click();
+    await axe(page, { iframes: false });
+  });
+});
