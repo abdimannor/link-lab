@@ -32,7 +32,7 @@ test('mouse focus matches :focus only, keyboard focus also matches :focus-visibl
 
 test('link text checker flags vague, bare and duplicate texts', async ({ page }) => {
   await page.goto('./');
-  await page.locator('#tr-input').fill('läs mer\nClick here\nhttps://example.com\nSVT Nyheter Helsingborg\nSVT Nyheter Helsingborg\nHelsingborgs Dagblad om ungdomarna');
+  await page.locator('#tr-input').fill('läs mer\nClick here\nhttps://example.com\nWikipedia: Hyperlink\nWikipedia: Hyperlink\nThe first website at CERN, from 1991');
   await page.locator('#tr-check').click();
   const items = page.locator('#tr-results li');
   await expect(items).toHaveCount(6);
@@ -45,7 +45,7 @@ test('links list shows every link with its name and new-tab note', async ({ page
   await page.locator('#tr-list').click();
   const count = await page.locator('a[href]').count();
   await expect(page.locator('#tr-links li')).toHaveCount(count);
-  await expect(page.locator('#tr-links')).toContainText('SVT SVT Nyheter Helsingborg (new tab)');
+  await expect(page.locator('#tr-links')).toContainText('Wikipedia Hyperlink (new tab)');
 });
 
 test('the three original links open in a new tab with noopener noreferrer', async ({ page }) => {

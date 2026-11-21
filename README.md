@@ -6,17 +6,17 @@ Lesson 3 of 4 in a small web course built from my first coursework pages from 20
 
 Lektion 1: [Hello Web](https://hello-web-kappa.vercel.app/) · Lektion 2: [Tech World](https://tech-world-zeta.vercel.app/) · Lektion 3: Link Lab (this one) · Lektion 4: [Dress Code](https://dress-code-bay.vercel.app/)
 
-A small exercise on styling links, from an early web course in 2023. The page has three links, to articles in Helsingborgs Dagblad and SVT and to my LinkedIn profile, each drawn as a coloured box. A stylesheet changes their text colour depending on the state of the link: unvisited, visited, under the mouse, and being clicked.
+A small exercise on styling links, from an early web course in 2023. The page has three links, each drawn as a coloured box. They now point to the first website at CERN, Wikipedia's article on hyperlinks and the Wayback Machine. A stylesheet changes their text colour depending on the state of the link: unvisited, visited, under the mouse, and being clicked.
 
 ## The reworked version
 
-The page is now a small specimen sheet for link states. The three links (HD, SVT, LinkedIn) are the same; the original page is in the git history.
+The front page is now a designed lesson built around the exercise, which is kept as `original.html` and shown in a browser frame.
 
 - **The lesson stays in the page.** The link-state rules are still in the `<style>` block of `index.html`, in LVHA order. Layout lives in `style.css`.
 - **Five states.** `:focus-visible` is added between `:visited` and `:hover`, so keyboard users see a clear outline and pointer states still win.
 - **Specimen strip.** All five states are shown side by side as static labels, so they can be compared without clicking.
 - **Rule order explained.** Each rule is shown next to a sentence on why it sits where it does.
-- **Contrast fixed.** In the original, the HD box had a yellow background and `:active` made the text yellow, so the label disappeared while pressed. Each state now has AA contrast on a white card; `:active` is dark text on a yellow highlight.
+- **Contrast fixed.** In the original, the first box had a yellow background and `:active` made the text yellow, so the label disappeared while pressed. Each state now has AA contrast on a white card; `:active` is dark text on a yellow highlight.
 - The inline box styles are gone (the old lesson about inline styles beating the stylesheet is covered in [dress-code](https://github.com/abdimannor/dress-code)). Every link opens in a new tab with `rel="noopener noreferrer"`.
 
 ## On the page now
@@ -58,7 +58,7 @@ npx playwright install chromium
 npm test
 ```
 
-The Playwright suite checks that the page loads without errors, has no axe violations, that the motion switch starts off under reduced motion and remembers the choice, and that the :visited, focus and link-text demos behave as described. CI runs it (`test.yml`) next to the HTML checker (`check.yml`).
+The Playwright suite checks that the page loads without errors, has no axe violations, that motion is on by default (even under reduced motion), the motion button pauses it and the choice is remembered, and that the :visited, focus and link-text demos behave as described. CI runs it (`test.yml`) next to the HTML checker (`check.yml`).
 
 The site is hosted on Vercel; every push to `master` redeploys it.
 

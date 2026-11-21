@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <script>(()=>{let m=null;try{m=localStorage.getItem('motion')}catch(e){}document.documentElement.dataset.motion=m==='on'||m==='off'?m:(matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on')})()</script>
+  <script>(()=>{let m=null;try{m=localStorage.getItem('motion')}catch(e){}document.documentElement.dataset.motion=m==='off'?'off':'on'})()</script>
   <title>Link Lab</title>
   <meta name="description" content="What a link really is: the five link states and their order, why :visited keeps a secret, keyboard focus, and link text that tells the truth.">
   <meta property="og:title" content="Link Lab">
@@ -20,8 +20,8 @@
   <meta property="og:image:alt" content="Screenshot of the Link Lab page">
   <meta name="twitter:image" content="https://link-lab-flax.vercel.app/og.png">
   <meta name="twitter:image:alt" content="Screenshot of the Link Lab page">
-  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="course.css">
+  <link rel="stylesheet" href="style.css">
   <style>
     /* The lesson: link states in LVHA order, with :focus-visible added before :hover.
        All have the same specificity, so the last matching rule wins. */
@@ -50,45 +50,71 @@
   </style>
 </head>
 <body>
-  <nav class="course-bar" lang="sv" aria-label="Kursen">
-    <p class="course-name">Kurs</p>
+  <nav class="course-bar" aria-label="Course">
+    <p class="course-name" lang="sv">Webbkursen</p>
     <ol>
-      <li><a href="https://hello-web-kappa.vercel.app/"><span class="course-num">Lektion 1</span> Hello Web<span class="course-mark" hidden> &#10003; Klar</span></a></li>
-      <li><a href="https://tech-world-zeta.vercel.app/"><span class="course-num">Lektion 2</span> Tech World<span class="course-mark" hidden> &#10003; Klar</span></a></li>
-      <li><a href="https://link-lab-flax.vercel.app/" aria-current="page"><span class="course-num">Lektion 3</span> Link Lab<span class="course-mark" hidden> &#10003; Klar</span></a></li>
-      <li><a href="https://dress-code-bay.vercel.app/"><span class="course-num">Lektion 4</span> Dress Code<span class="course-mark" hidden> &#10003; Klar</span></a></li>
+      <li><a href="https://hello-web-kappa.vercel.app/"><span class="course-num">1</span> <span class="course-title">Hello Web</span><span class="course-mark" hidden><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg><span class="course-sr"> done</span></span></a></li>
+      <li><a href="https://tech-world-zeta.vercel.app/"><span class="course-num">2</span> <span class="course-title">Tech World</span><span class="course-mark" hidden><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg><span class="course-sr"> done</span></span></a></li>
+      <li><a href="https://link-lab-flax.vercel.app/" aria-current="page"><span class="course-num">3</span> <span class="course-title">Link Lab</span><span class="course-mark" hidden><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg><span class="course-sr"> done</span></span></a></li>
+      <li><a href="https://dress-code-bay.vercel.app/"><span class="course-num">4</span> <span class="course-title">Dress Code</span><span class="course-mark" hidden><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg><span class="course-sr"> done</span></span></a></li>
     </ol>
-    <span class="course-motion"><button type="button" aria-pressed="false">R&ouml;relse</button></span>
+    <div class="course-controls">
+      <button type="button" class="course-icon-btn course-motion" aria-pressed="true" aria-label="Pause motion" title="Pause motion"><svg class="icon-pause" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><rect x="7" y="5.5" width="3.4" height="13" rx="1.2"/><rect x="13.6" y="5.5" width="3.4" height="13" rx="1.2"/></svg><svg class="icon-play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 5.8v12.4a1 1 0 0 0 1.5.86l10-6.2a1 1 0 0 0 0-1.72l-10-6.2A1 1 0 0 0 8 5.8z"/></svg></button>
+    </div>
   </nav>
   <main class="wrap">
-    <header>
-      <h1>Link Lab</h1>
-      <p class="intro">One link, several states. Hover, click and revisit the three links below and watch the colour follow the rules in the stylesheet.</p>
+    <header class="hero">
+      <div class="hero-text">
+        <p class="eyebrow rise" style="--i:0">Lesson 3 of 4</p>
+        <h1 class="rise" style="--i:1">Link Lab</h1>
+        <p class="lead rise" style="--i:2">One link has several states, and four short CSS rules decide which colour wins. This lesson shows the five states, why their order matters, and what a link owes the people who use it.</p>
+        <div class="goals rise" style="--i:3">
+          <h2 class="goals-title">You will be able to</h2>
+          <ul>
+            <li>Style <code>:link</code>, <code>:visited</code>, <code>:focus-visible</code>, <code>:hover</code> and <code>:active</code>.</li>
+            <li>Put the rules in an order where every state can show.</li>
+            <li>Explain why <code>:visited</code> is limited and why focus must stay visible.</li>
+          </ul>
+          <p class="time">About 30 minutes</p>
+        </div>
+      </div>
+      <figure class="hero-states rise" style="--i:4" aria-labelledby="states">
+        <figcaption id="states">The five states, side by side</figcaption>
+      <ol class="specimens">
+        <li><span class="swatch s-link">CERN</span><code>:link</code><span>Not visited yet</span></li>
+        <li><span class="swatch s-visited">CERN</span><code>:visited</code><span>Already opened</span></li>
+        <li><span class="swatch s-focus">CERN</span><code>:focus-visible</code><span>Reached with the keyboard</span></li>
+        <li><span class="swatch s-hover">CERN</span><code>:hover</code><span>Under the pointer</span></li>
+        <li><span class="swatch s-active">CERN</span><code>:active</code><span>Being pressed</span></li>
+      </ol>
+        <p class="note">Static specimens, so every state is visible at once. Each colour passes WCAG AA contrast.</p>
+      </figure>
     </header>
 
+    <section class="original" id="original" aria-labelledby="orig-title">
+      <p class="eyebrow">Where it started</p>
+      <h2 id="orig-title">The original exercise</h2>
+      <div class="frame">
+        <div class="frame-bar" aria-hidden="true"><span></span><span></span><span></span><span class="frame-url">original.html</span></div>
+        <div class="frame-view" tabindex="0" role="region" aria-label="The original exercise, scrolls sideways on narrow screens"><iframe src="original.html" title="The original exercise: three links styled with four link-state rules" loading="lazy"></iframe></div>
+      </div>
+      <p class="caption">The first version from the course, kept as it was written except for its links: four rules (<code>:link</code> green, <code>:visited</code> pink, <code>:hover</code> red, <code>:active</code> yellow) and three links, which now point to pages about the web. Hover and press them inside the frame, or <a href="original.html">open the original on its own</a>.</p>
+    </section>
+
     <section aria-labelledby="try">
+      <p class="eyebrow">Three real links</p>
       <h2 id="try">Try the links</h2>
+      <p class="note">Three links, now as cards. Hover, press and open them, then come back: the colour follows the rules in this page's stylesheet.</p>
       <ul class="links">
-        <li><a class="hd" href="https://www.hd.se/2022-05-19/kommer-nagra-vuxna-dyka-upp" target="_blank" rel="noopener noreferrer">HD<small>Helsingborgs Dagblad</small></a></li>
-        <li><a class="svt" href="https://www.svt.se/nyheter/lokalt/helsingborg/har-visas-ungdomarnas-ideer-om-helsingborg-upp" target="_blank" rel="noopener noreferrer">SVT<small>SVT Nyheter Helsingborg</small></a></li>
-        <li><a class="linkedin" href="https://www.linkedin.com/in/mahad-abdullahi-262b56228/" target="_blank" rel="noopener noreferrer">LinkedIn<small>Profile</small></a></li>
+        <li><a class="ln-cern" href="https://info.cern.ch/hypertext/WWW/TheProject.html" target="_blank" rel="noopener noreferrer">The first website<small>CERN, 1991</small></a></li>
+        <li><a class="ln-wiki" href="https://en.wikipedia.org/wiki/Hyperlink" target="_blank" rel="noopener noreferrer">Wikipedia<small>Hyperlink</small></a></li>
+        <li><a class="ln-wayback" href="https://web.archive.org/" target="_blank" rel="noopener noreferrer">Wayback Machine<small>Internet Archive</small></a></li>
       </ul>
     </section>
 
 
-    <section aria-labelledby="states">
-      <h2 id="states">The five states, side by side</h2>
-      <p class="note">Static specimens, so every state is visible at once. Colours match the rules below; each passes WCAG AA contrast.</p>
-      <ol class="specimens">
-        <li><span class="swatch s-link">HD</span><code>:link</code><span>Not visited yet</span></li>
-        <li><span class="swatch s-visited">HD</span><code>:visited</code><span>Already opened</span></li>
-        <li><span class="swatch s-focus">HD</span><code>:focus-visible</code><span>Reached with the keyboard</span></li>
-        <li><span class="swatch s-hover">HD</span><code>:hover</code><span>Under the pointer</span></li>
-        <li><span class="swatch s-active">HD</span><code>:active</code><span>Being pressed</span></li>
-      </ol>
-    </section>
-
     <section aria-labelledby="order">
+      <p class="eyebrow">The core idea</p>
       <h2 id="order">Why the order matters</h2>
       <p class="note">All five selectors have the same specificity. When several states match at once, the rule written last wins. Remember it as <strong>L</strong>o<strong>V</strong>e <strong>HA</strong>te: link, visited, hover, active. Simplified colour names below; the page uses the exact values in its <code>&lt;style&gt;</code> block.</p>
       <ol class="order">
@@ -136,7 +162,7 @@
             <button type="button" data-state="hover" aria-pressed="false">:hover<small>pointer over</small></button>
             <button type="button" data-state="active" aria-pressed="false">:active<small>pressed</small></button>
           </div>
-          <div class="pg-window"><span class="pg-link">HD<small>Helsingborgs Dagblad</small></span></div>
+          <div class="pg-window"><span class="pg-link">CERN<small>The first website</small></span></div>
           <p class="pg-status" role="status" aria-live="polite"></p>
           <div class="pg-verdict"></div>
         </div>
@@ -151,6 +177,7 @@
     </section>
 
     <section class="challenge" id="challenge" aria-labelledby="ch-title" hidden>
+      <p class="eyebrow">Try it yourself</p>
       <h2 id="ch-title"><span>Order</span> <span>the rules</span></h2>
       <p class="note">A challenge. The five rules below start in a broken order. Move them until all three scenarios show the target colour. The browser renders each scenario with your order, and a scenario turns green when its real computed colour matches.</p>
       <div class="ch-grid">
@@ -161,6 +188,7 @@
     </section>
 
     <section class="deep" id="visited-privacy" aria-labelledby="vp-title">
+      <p class="eyebrow">Going further</p>
       <h2 id="vp-title">Why <code>:visited</code> keeps a secret</h2>
       <p class="note">The order section says browsers only let <code>:visited</code> change colours. Here is why. A page could once draw hundreds of hidden links to other sites, style <code>:visited</code> differently and ask the browser which ones had changed. That read your browsing history in milliseconds, without asking. Browsers closed the hole in two ways, described on MDN's <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Selectors/Privacy_and_:visited">Privacy and the :visited selector</a>.</p>
       <div class="deep-grid">
@@ -217,9 +245,9 @@
           <h3><label for="tr-input">Check your link texts</label></h3>
           <p>One link text per line.</p>
           <textarea id="tr-input" rows="6">läs mer
-Läs SVT:s reportage om ungdomarnas idéer för Helsingborg
+Läs Wikipedias artikel om hyperlänkar
 click here
-https://www.hd.se/2022-05-19/kommer-nagra-vuxna-dyka-upp
+https://en.wikipedia.org/wiki/Hyperlink
 read more</textarea>
           <button type="button" id="tr-check">Check</button>
           <ul class="tr-results" id="tr-results" aria-live="polite"></ul>
@@ -228,21 +256,21 @@ read more</textarea>
           <h3>This page's links list</h3>
           <p>Every link on this page with the name it gives to assistive technology, roughly as a screen reader's links list shows it. The name here is the visible text or <code>aria-label</code>; a real screen reader follows the full accessible name rules.</p>
           <button type="button" id="tr-list">Build the links list</button>
-          <ol class="tr-links" id="tr-links"></ol>
+          <ol class="tr-links" id="tr-links" tabindex="0" aria-label="Links on this page"></ol>
         </div>
       </div>
       <div class="deep-card tr-blank">
         <h3><code>target="_blank"</code> and <code>rel</code></h3>
         <p>The 2023 exercise opened its three links with <code>target="_blank"</code> and nothing else. A page opened that way used to get <code>window.opener</code>, a handle back to the page that opened it, which it could use to send that tab somewhere else. <code>rel="noopener"</code> removes the handle. MDN notes that today <code>target="_blank"</code> on <code>&lt;a&gt;</code> implicitly behaves like <code>rel="noopener"</code> (<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/noopener">MDN: rel=noopener</a>). <code>rel="noreferrer"</code> goes further: the browser leaves out the <code>Referer</code> header and also behaves as if <code>noopener</code> were set (<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/noreferrer">MDN: rel=noreferrer</a>). The three links at the top carry both, which still helps in older browsers and keeps the source of a click private.</p>
-        <pre><code>&lt;a href="https://www.svt.se/..." target="_blank" rel="noopener noreferrer"&gt;SVT&lt;/a&gt;</code></pre>
+        <pre><code>&lt;a href="https://info.cern.ch/" target="_blank" rel="noopener noreferrer"&gt;The first website&lt;/a&gt;</code></pre>
         <p>A new tab is still a surprise for some people, so it is kind to say so in the link, as a word or hidden text.</p>
       </div>
     </section>
 
   </main>
-  <nav class="course-next" lang="sv" aria-label="N&auml;sta lektion">
-    <p>N&auml;sta lektion</p>
-    <a href="https://dress-code-bay.vercel.app/">Lektion 4: Dress Code &rarr;</a>
+  <nav class="course-next" aria-label="Previous and next lesson">
+    <a class="course-next-from" href="https://tech-world-zeta.vercel.app/" rel="prev"><span class="course-next-label">Previous lesson</span><span class="course-next-title">&larr; 2 Tech World</span></a>
+    <a class="course-next-to" href="https://dress-code-bay.vercel.app/" rel="next"><span class="course-next-label">Next lesson</span><span class="course-next-title">4 Dress Code &rarr;</span></a>
   </nav>
   <script src="playground.js" defer></script>
   <script src="challenge.js" defer></script>
