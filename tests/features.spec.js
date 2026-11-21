@@ -8,12 +8,24 @@ test('getComputedStyle reports the unvisited colour for a visited link', async (
   await expect(page.locator('#vp-verdict')).toContainText('unvisited colour');
 });
 
-test('mouse focus matches :focus only, keyboard focus also matches :focus-visible', async ({ page }) => {
+test('mouse focus matches :focus only, keyboard focus also matches :focus-visible', async ({ page, browserName }) => {
   await page.goto('./');
   await page.locator('.fo-a').click();
-  await expect(page.locator('#fo-log li').first()).toContainText('via pointer: :focus yes, :focus-visible no');
+  const first = page.locator('#fo-log li').first();
+  await expect(first).toContainText('via pointer:');
+  if (browserName === 'webkit' && (await first.textContent()).includes('not focused at all')) {
+    // macOS WebKit follows the platform convention: a mouse click does not focus a button, and the page says so.
+    await page.locator('.fo-a').focus();
+  } else {
+    await expect(first).toContainText('via pointer: :focus yes, :focus-visible no');
+  }
   await page.keyboard.press('Tab');
-  await expect(page.locator('#fo-log li').first()).toContainText(':focus-visible yes');
+  if (browserName === 'webkit' && !(await page.locator('.fo-b').evaluate((el) => el === document.activeElement))) {
+    // macOS Safari reaches buttons with Option+Tab unless Full Keyboard Access is on.
+    await page.locator('.fo-a').focus();
+    await page.keyboard.press('Alt+Tab');
+  }
+  await expect(first).toContainText(':focus-visible yes');
   const outline = await page.locator('.fo-b').evaluate((el) => getComputedStyle(el).outlineStyle);
   expect(outline).toBe('solid');
 });

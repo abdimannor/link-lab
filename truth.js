@@ -20,12 +20,21 @@
   let lastInput = 'none';
   addEventListener('pointerdown', () => { lastInput = 'pointer'; }, true);
   addEventListener('keydown', () => { lastInput = 'keyboard'; }, true);
+  const addLog = (text) => {
+    const li = document.createElement('li');
+    li.textContent = text;
+    log.prepend(li);
+    while (log.children.length > 6) log.lastElementChild.remove();
+  };
   for (const b of document.querySelectorAll('.fo-buttons button')) {
     b.addEventListener('focus', () => {
-      const li = document.createElement('li');
-      li.textContent = `${b.textContent.trim()} via ${lastInput}: :focus ${b.matches(':focus') ? 'yes' : 'no'}, :focus-visible ${b.matches(':focus-visible') ? 'yes' : 'no'}`;
-      log.prepend(li);
-      while (log.children.length > 6) log.lastElementChild.remove();
+      addLog(`${b.textContent.trim()} via ${lastInput}: :focus ${b.matches(':focus') ? 'yes' : 'no'}, :focus-visible ${b.matches(':focus-visible') ? 'yes' : 'no'}`);
+    });
+    // Safari (WebKit) follows the macOS convention and does not focus a button on a mouse click.
+    b.addEventListener('click', (e) => {
+      if (e.detail > 0 && document.activeElement !== b) {
+        addLog(`${b.textContent.trim()} via pointer: not focused at all (this browser does not focus buttons on click)`);
+      }
     });
   }
 
