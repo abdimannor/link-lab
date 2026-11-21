@@ -197,7 +197,7 @@ code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-si
 .fo-log { font-family: ui-monospace, Menlo, monospace; font-size: 0.9rem; padding-left: 1.5rem; min-height: 3rem; }
 kbd { font-family: ui-monospace, Menlo, monospace; border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 4px; padding: 0 0.3em; }
 .deep textarea { width: 100%; border: 1px solid var(--muted); border-radius: 8px; padding: 0.5rem; margin-bottom: 0.75rem; }
-.tr-results, .tr-links { padding-left: 1.25rem; margin: 0.75rem 0 0; }
+.tr-results, .tr-links { padding-left: 2rem; margin: 0.75rem 0 0; }
 .tr-results li { margin-bottom: 0.4rem; }
 .tr-bad { color: var(--c-hover); }
 .tr-ok { color: var(--c-link); }
