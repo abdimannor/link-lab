@@ -21,6 +21,8 @@
     --c-visited: #f472b6;
     --c-focus: #93b4ff;
     --c-hover: #fca5a5;
+    --c-active: #fde047;
+    --c-active-bg: #423b0b;
   }
 }
 *, *::before, *::after { box-sizing: border-box; }
@@ -58,14 +60,15 @@ main a:is(:link, :visited) { text-decoration-thickness: 1px; }
 .hero-states .specimens li:first-child { border-top: 0; }
 .hero-states .swatch { margin: 0; font-size: 1.35rem; }
 @media (max-width: 56rem) { .hero { grid-template-columns: 1fr; } }
-@media (max-width: 30rem) { .hero-states .specimens li { grid-template-columns: 3.5rem 1fr; } .hero-states .specimens li > span:last-child { grid-column: 2; } }
+@media (max-width: 30rem) { .hero-states .specimens li { grid-template-columns: 5rem 1fr; column-gap: .75rem; } .hero-states .specimens li > span:last-child { grid-column: 2; } }
 
 /* The original exercise in a browser frame */
 .frame { max-width: 46rem; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: #fff; }
 .frame-bar { display: flex; align-items: center; gap: .4rem; padding: .55rem .8rem; background: color-mix(in srgb, var(--card) 90%, var(--ink)); border-bottom: 1px solid var(--line); }
-.frame-bar > span:not(.frame-url) { width: .65rem; height: .65rem; border-radius: 50%; background: var(--line); }
+.frame-bar > span:not(.frame-url) { width: .65rem; height: .65rem; border-radius: 50%; background: color-mix(in srgb, var(--muted) 45%, transparent); }
 .frame-url { margin-left: .75rem; padding: .1rem .75rem; border-radius: 999px; background: var(--card); color: var(--muted); font: .8rem var(--mono); }
-.frame iframe { display: block; width: 100%; height: 7.5rem; border: 0; background: #fff; color-scheme: light; }
+.frame-view { overflow-x: auto; }
+.frame iframe { display: block; width: 100%; min-width: 38rem; height: 6.5rem; border: 0; background: #fff; color-scheme: light; }
 .caption { color: var(--muted); max-width: 68ch; margin: 1rem 0 0; font-size: .95rem; }
 code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.92em; }
 
