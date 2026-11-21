@@ -37,7 +37,7 @@
     const t = text.trim();
     const n = t.toLowerCase().replace(/[.!?…:\s]+$/, '');
     if (vague.includes(n)) return [false, 'says nothing about where it goes. Name the destination instead.'];
-    if (/^(https?:\/\/|www\.)/i.test(t)) return [false, 'is a bare address. A screen reader reads it character by character; describe the page instead.'];
+    if (/^(https?:\/\/|www\.)/i.test(t)) return [false, 'is a bare address. A screen reader reads it out piece by piece; describe the page instead.'];
     if (n.length < 4) return [false, 'is very short. It may only make sense next to its surroundings.'];
     return [true, 'describes its destination.'];
   }
